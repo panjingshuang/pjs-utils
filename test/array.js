@@ -1,4 +1,4 @@
-import { forEachCanReturn } from '../array.js'
+import { forEachCanReturn } from '../index.js'
 
 function forEachCanReturnTest() {
   const array = [{
