@@ -1,5 +1,7 @@
-import array from './array'
-// 导出数据
-export default {
-  ...array
-}
+export {
+  forEachCanReturn
+} from './array.js'
+
+export {
+  mergeByShallow
+} from './object.js'
