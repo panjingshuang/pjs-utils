@@ -6,3 +6,7 @@ export const forEachCanReturn = (array,fn) =>{
     }
   }
 }
+
+export function pjs_random(min,max){
+  return Math.round(Math.random()*max + min);
+}

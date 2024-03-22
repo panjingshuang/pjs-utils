@@ -1,7 +1,19 @@
 export {
-  forEachCanReturn
+  forEachCanReturn,
+  pjs_random
 } from './array.js'
 
 export {
-  mergeByShallow
+  mergeByShallow,
+  setDomStyles,
+  setDomAttrubites
 } from './object.js'
+
+export {
+  clipboardCopy,
+  canvasImgInLocal,
+  getBase64ByType,
+  onLotterty,
+  TwistedEggMatter,
+  Barrage,
+} from './other.js'
