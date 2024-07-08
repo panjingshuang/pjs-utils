@@ -1,0 +1,1 @@
+(()=>{"use strict";var t={width:750,height:1334,designScale:2,adaptiveScale:2,clientWidth:document.documentElement.clientWidth||document.body.clientWidth,clientHeight:document.documentElement.clientHeight||document.body.clientHeight};t.adaptiveScale=t.width/t.clientWidth})();
