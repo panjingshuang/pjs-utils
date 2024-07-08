@@ -803,3 +803,95 @@ export async function clipboardCopy(compId, success,fail) {
 //     fontColor: ["#ffffff", "#ffbb00"],
 //   })
 // }
+
+// 刮刮乐
+// 刮刮乐
+function ScratchCard(params = {}) {
+  let { id, touchstart, touchend, touchmove, mask,zIndex } = params
+  let father_element = document.getElementById(id)
+  let width = father_element.getBoundingClientRect().width
+  let height = father_element.getBoundingClientRect().height
+
+  let canDraw = false
+
+  let canvas = document.createElement('canvas')
+  _setDomStyles(canvas,{
+    'position':'absolute',
+    'z-index': zIndex ? zIndex : 1
+  })
+  father_element.appendChild(canvas)
+  if (canvas) {
+    ctx = canvas.getContext('2d')
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high"
+
+    const img = new Image();
+    img.src = mask;
+    img.onload = () => {
+      const dpr = window.devicePixelRatio;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      ctx.scale(dpr, dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.globalCompositeOperation = 'destination-out'
+    }
+    canvas.addEventListener('touchstart', function (e) {
+      canDraw = true
+      touchstart && touchstart()
+    })
+    canvas.addEventListener('touchend', function () {
+      canDraw = false
+      document.body.style.overflow = 'auto'
+      if (touchend) touchend()
+    })
+    canvas.addEventListener('touchmove', function (e) {
+      document.body.style.overflow = 'hidden'
+      if (canDraw) {
+        drawCircle(ctx, e)
+      }
+      if (canDraw && touchmove) touchmove()
+    })
+  }
+
+  // 绘制操作
+  function drawCircle(ctx, e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.touches[0].clientX - rect.left;
+    const y = e.touches[0].clientY - rect.top;
+    ctx.beginPath()
+    ctx.arc(x, y, 20, 0, 2 * Math.PI, true)
+    ctx.fill()
+    ctx.closePath()
+  }
+
+  function setMask(url = 'https://n.sinaimg.cn/auto/20240704zero/page4/mask.png') {
+    if(!canvas) return
+    const img = new Image();
+    img.src = url;
+    img.onload = () => {
+      ctx.globalCompositeOperation = 'source-over'
+      const dpr = window.devicePixelRatio;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+
+      ctx.drawImage(img, 0, 0, width * dpr, height * dpr)
+      // Scale the context to ensure correct drawing operations
+      ctx.scale(dpr, dpr);
+
+      // Set the "drawn" size of the canvas
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.globalCompositeOperation = 'destination-out'
+    }
+  }
+
+
+  // 做覆盖
+  return {
+    canvas,
+    setMask
+  }
+}
