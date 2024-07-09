@@ -1,0 +1,1 @@
+export{forEachCanReturn,pjs_random}from"./array.js";export{mergeByShallow,setDomAttrubites,setDomStyles}from"./object.js";export{Barrage,TwistedEggMatter,canvasImgInLocal,clipboardCopy,getBase64ByType,onLotterty}from"./other.js";

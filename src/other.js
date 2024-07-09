@@ -806,7 +806,7 @@ export async function clipboardCopy(compId, success,fail) {
 
 // 刮刮乐
 // 刮刮乐
-function ScratchCard(params = {}) {
+export function ScratchCard(params = {}) {
   let { id, touchstart, touchend, touchmove, mask,zIndex } = params
   let father_element = document.getElementById(id)
   let width = father_element.getBoundingClientRect().width
