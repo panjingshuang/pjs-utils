@@ -1,8 +1,8 @@
-import { mergeByShallow } from '../index.js'
+import { mergeByShallow } from '../bin/index.js'
 
 
 test('merge function',()=>{
-  export(mergeByShallow([obj = {
+  expect(mergeByShallow({
     age: 10,
     name:'zhangsan',
     list: [{name:2}]

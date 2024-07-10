@@ -1,7 +1,7 @@
-import { forEachCanReturn } from '../index.js'
+import { forEachCanReturn } from '../bin/index.js'
 
 test('forEachCanReturn function',()=>{
-  export(forEachCanReturn([{
+  expect(forEachCanReturn([{
     id: 2
   }, {
     id: 4

@@ -42,3 +42,7 @@ npm包的创建流程
 - 在项目根目录下添加一个.eslintrc.cjs文件
 2. Cannot read config
 -  文件名称应该是.eslintrc.cjs，但是之前写的是.js后缀导致出现这种问题
+
+运行npm run test的时候，也就是执行jest的时候
+1. You appear to be using a native ECMAScript module configuration file, which is only supported when running Babel asynchronously.
+- 需要将将.babelrc.js文件换成.babelrc.cjs
