@@ -2,8 +2,8 @@
 export const mergeByShallow = (obj, newObj) => {
   let a = JSON.stringify(newObj)
   let o = JSON.stringify(a)
-  for(let key in newObj){
-    obj[key] = newObj[key]
+  for(let key in o){
+    obj[key] = o[key]
   }
 }
 

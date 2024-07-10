@@ -1,8 +1,10 @@
+import { setDomStyles, setDomAttrubites } from './object'
+import { getRealPx, random } from './utils'
 /**
  * @method 截图功能-截图容器获取对应的url地址,内容替换（不会将图片数据上传到服务器）
  * @param {canvas*,saveImgQuality,saveImgType,hiddenCompId,repalceId}
  */
-export function canvasImgInLocal(params, onSuccess = (data) => { }) {
+export function canvasImgInLocal(params, onSuccess = () => { }) {
   if (!window.html2canvas) {
     console.log('function canvasImgInLocal need to introduce html2canvas.js!')
     return
@@ -186,9 +188,9 @@ export function onLotterty(params) {
     const len = sortLists.length
     const moveNum = len * params.times
     const milliseconds = parseInt(params.time * 1000 / moveNum)
-    if(!params.isFirst){
+    if (!params.isFirst) {
       animateIndex = animateAttenuationIndex
-    }else{
+    } else {
       animateIndex = 0
     }
     intervalCb = window.setInterval(() => {
@@ -256,7 +258,7 @@ export function onLotterty(params) {
   }
 
   function onReset() {
-    itemLists.forEach((item, index) => {
+    itemLists.forEach((item) => {
       let lotteryIndex = parseInt(item.getAttribute('lottery_index'))
       let light = item.childNodes[0]
       let unlight = item.childNodes[1]
@@ -317,7 +319,7 @@ export function TwistedEggMatter(params) {
   const conHeight = params.height
   const gravityY = parseInt(params.gravityY)
 
-  let matterCanvasStyle = document.documentElement.style
+  // let matterCanvasStyle = document.documentElement.style
   // // 比例设置 这里需要重新处理下
   // matterCanvasStyle.setProperty(`--matter-canvas-scale`, 0.5)
   let Matter = window.Matter
@@ -358,9 +360,9 @@ export function TwistedEggMatter(params) {
   let positionYs = [183.38542746227944, 230.06200548401105, 207.91038110198647, 279.55905905222403, 326.1084787517811, 296.24269011459813]
 
   for (let i = 0; i < shapeAmount; i++) {
-    let x = (conWidth / 400 )  * positionXs[i]
-    let y =  (conHeight / 400 )  * positionYs[i]
-    let body = Bodies.circle(x,y, bubbleWidth / 2,
+    let x = (conWidth / 400) * positionXs[i]
+    let y = (conHeight / 400) * positionYs[i]
+    let body = Bodies.circle(x, y, bubbleWidth / 2,
       {
         friction: 0.001, //摩擦力
         frictionAir: 0.005, //空气阻力
@@ -373,7 +375,7 @@ export function TwistedEggMatter(params) {
           sprite: {
             texture: textures[i],
             xScale: params.scale ? params.scale : 0.9,
-            yScale:  params.scale ? params.scale : 0.9,
+            yScale: params.scale ? params.scale : 0.9,
           },
         }
       }
@@ -455,9 +457,9 @@ export function TwistedEggMatter(params) {
   }
 
 
-  function destroy() {
+  // function destroy() {
 
-  }
+  // }
 
   return {
     start: onStart
@@ -481,34 +483,34 @@ COMMON_WID_HEI.adaptiveScale = COMMON_WID_HEI.width / COMMON_WID_HEI.clientWidth
  * @method 弹幕动效
  * @param {*} params
  */
-export function Barrage(params){
-  if(!params.id){
+export function Barrage(params) {
+  if (!params.id) {
     console.log('function Barrage need id!')
     return
   }
   let className = "barrage"
   let className_ = "barrage-b"
   let parentDom = document.getElementById(params.id)
-  setDomStyles(parentDom,{
+  setDomStyles(parentDom, {
     position: 'relative',
     overflow: 'hidden'
   })
   params.textSize = params.textSize || 20
   params.duration = params.duration || 10
-  params.num = params.num  || 5
-  params.duration =  params.duration || 12
+  params.num = params.num || 5
+  params.duration = params.duration || 12
 
-  let comp
-  if (!params.content) return 
-  this.content = params.content
+  // let comp
+  if (!params.content) return
+  let content = params.content
+  let count = 0
+  let time = 0
   getDom()
-  window.setTimeout(()=>{
+  window.setTimeout(() => {
     initBarrage()
-  },500)
-  
-  function _random(min,max){
-    return Math.round(Math.random()*max + min);
-  }
+  }, 500)
+
+
 
 
   function getTextDom(text, className, i) {
@@ -533,7 +535,7 @@ export function Barrage(params){
       fontSize = fontSize / COMMON_WID_HEI.adaptiveScale
     }
     let randomTop = parseInt(parentDom.clientHeight)
-    let everyHeight =  randomTop / params.num
+    let everyHeight = randomTop / params.num
 
     let style = {
       position: "absolute",
@@ -543,16 +545,16 @@ export function Barrage(params){
       whiteSpace: "nowrap",
       color,
     }
-    
+
     let span = document.createElement('span')
     span.classList.add(className, 'barrage-item')
-    setDomStyles(span,style)
+    setDomStyles(span, style)
     span.innerHTML = text
     return span
   }
 
   function getDom() {
-    let count = content.length
+    count = content.length
     let comp, j
 
     time = (count / 2) / params.num
@@ -582,7 +584,7 @@ export function Barrage(params){
 
   function playAnim(className, i = 0, realName) {
     let duration = 10
-    if( params && params.duration){
+    if (params && params.duration) {
       duration = params.duration
     }
     window.gsap.to(className, {
@@ -593,7 +595,7 @@ export function Barrage(params){
         let left = - (clientWidth + width)
         return left
       },
-      duration: params.duration,
+      duration: duration,
       ease: "none",
       yoyo: false,
       stagger: params.num,
@@ -622,9 +624,7 @@ export function Barrage(params){
     className = ""
     className_ = ""
     count = 0
-    num = 0
     params = null
-    fontFamily = ''
     let doms = document.getElementsByClassName("barrage-item")
     doms.forEach((dom) => {
       window.gsap.killTweensOf(dom)
@@ -643,20 +643,20 @@ export function Barrage(params){
  * @param {*} success 成功回调
  * @param {*} fail 失败回调
  */
-export async function clipboardCopy(compId, success,fail) {
+export async function clipboardCopy(compId, success, fail) {
   let dom = document.getElementById(compId)
   let text = ''
-  if(dom){
+  if (dom) {
     text = dom.innerHTML || dom.innerText
-  }else{
+  } else {
     text = compId
   }
-  if(copyExecCommand(text)){
-    if(success){
+  if (copyExecCommand(text)) {
+    if (success) {
       success(text)
     }
-  }else{
-    if(fail){
+  } else {
+    if (fail) {
       fail()
     }
   }
@@ -690,7 +690,7 @@ export async function clipboardCopy(compId, success,fail) {
       window.document.body.removeChild(span)
     }
 
-    if (!success) throw makeError()
+    if (!success) throw window.makeError()
     return success
   }
 }
@@ -807,16 +807,17 @@ export async function clipboardCopy(compId, success,fail) {
 // 刮刮乐
 // 刮刮乐
 export function ScratchCard(params = {}) {
-  let { id, touchstart, touchend, touchmove, mask,zIndex } = params
+  let { id, touchstart, touchend, touchmove, mask, zIndex } = params
   let father_element = document.getElementById(id)
   let width = father_element.getBoundingClientRect().width
   let height = father_element.getBoundingClientRect().height
+  let ctx = null
 
   let canDraw = false
 
   let canvas = document.createElement('canvas')
-  _setDomStyles(canvas,{
-    'position':'absolute',
+  setDomStyles(canvas, {
+    'position': 'absolute',
     'z-index': zIndex ? zIndex : 1
   })
   father_element.appendChild(canvas)
@@ -839,7 +840,7 @@ export function ScratchCard(params = {}) {
     }
     canvas.addEventListener('touchstart', function (e) {
       canDraw = true
-      touchstart && touchstart()
+      touchstart && touchstart(e)
     })
     canvas.addEventListener('touchend', function () {
       canDraw = false
@@ -867,7 +868,7 @@ export function ScratchCard(params = {}) {
   }
 
   function setMask(url = 'https://n.sinaimg.cn/auto/20240704zero/page4/mask.png') {
-    if(!canvas) return
+    if (!canvas) return
     const img = new Image();
     img.src = url;
     img.onload = () => {

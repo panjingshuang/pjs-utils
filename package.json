@@ -6,12 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "build": "rollup --config scripts/rollup.config.prod.js"
+    "build": "rollup --config scripts/rollup.config.prod.js",
+    "lib": "rollup --config scripts/rollup.config.lib.js"
   },
   "keywords": [],
   "author": "panjingshuang",
   "license": "ISC",
   "dependencies": {
+    "@rollup/plugin-eslint": "^9.0.5",
     "rollup": "^4.18.1"
   },
   "devDependencies": {

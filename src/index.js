@@ -17,3 +17,8 @@ export {
   TwistedEggMatter,
   Barrage,
 } from './other.js'
+
+export {
+  getRealPx,
+  random
+} from './utils.js'
