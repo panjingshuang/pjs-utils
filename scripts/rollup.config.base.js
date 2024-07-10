@@ -6,7 +6,7 @@
 import eslint from '@rollup/plugin-eslint'
 // import { babel } from '@rollup/plugin-babel'
 import terser from '@rollup/plugin-terser'
-// import clear from 'rollup-plugin-clear'
+import clear from 'rollup-plugin-clear'
 import json from '@rollup/plugin-json' // 支持在源码中直接引入json文件，不影响下面的
 import { globSync } from 'glob';
 // import path from 'path';
@@ -26,9 +26,9 @@ export default {
     json({
       exclude: [ 'node_modules/*' ],
     }),
-    // clear({
-    //   targets: ['lib']
-    // }),
+    clear({
+      targets: ['bin']
+    }),
     // alias(),
     // replace({
     //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),

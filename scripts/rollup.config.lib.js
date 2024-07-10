@@ -1,5 +1,6 @@
 import baseConfig from './rollup.config.base.js'
 import terser from '@rollup/plugin-terser'
+import clear from 'rollup-plugin-clear'
 import pkg from '../package.json' assert { type: 'json' }
 
 
@@ -43,6 +44,9 @@ export default {
     }
   ],
   plugins: [
-    ...baseConfig.plugins
+    ...baseConfig.plugins,
+    clear({
+      target:['lib']
+    })
   ]
 }
