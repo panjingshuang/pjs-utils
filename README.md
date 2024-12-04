@@ -33,6 +33,7 @@ npm install @panjingshuang/pjs-utils
 5. eslint的使用
 6. babel的使用是如何操作呢？
 7. jest单元测试的使用
+8. 如何对css样式文件进行压缩(有插件但是rollup主要是针对js操作的)
 
 npm包的创建流程
 
